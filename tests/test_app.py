@@ -99,7 +99,7 @@ class AppTests(unittest.TestCase):
         self.assertIn('new',app.PENDING)
         self.assertLessEqual(len(app.PENDING),app.MAX_PENDING)
     def test_rendering_escapes_user_text_and_uses_no_remote_assets(self):
-        status,html=self.call('GET','/');self.assertEqual(status,200);self.assertIn('<h1>Context Handoff</h1>',html)
+        status,html=self.call('GET','/');self.assertEqual(status,200);self.assertIn('<h1>AI Task Handoff</h1>',html)
         self.assertIn('Manual JSON only.',html);self.assertNotIn('googleapis.com',html);self.assertNotIn('transcript"',html)
         dangerous={**self.state['current'],'objective':'<img src=x onerror=alert(1)>'}
         self.call('PUT','/api/state',dangerous)

@@ -1,1 +1,1 @@
-"""Acceptance checks for Context Handoff."""
+"""Acceptance checks for AI Task Handoff."""
