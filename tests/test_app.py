@@ -3,6 +3,7 @@ import json
 import tempfile
 import threading
 import unittest
+from unittest.mock import Mock, patch
 from http.server import ThreadingHTTPServer
 from pathlib import Path
 from urllib.error import HTTPError
@@ -107,5 +108,13 @@ class AppTests(unittest.TestCase):
         self.assertIn('approved={current:d.approved,approved_at:d.approved_at}',js)
         self.assertIn('Redaction choices changed. Build the preview again.',js)
         self.assertIn('label.htmlFor=input.id',js)
+
+    def test_database_connection_closes_when_setup_fails(self):
+        connection=Mock()
+        connection.execute.side_effect=RuntimeError('injected setup failure')
+        with patch.object(app,'prepare_database'), patch.object(app.sqlite3,'connect',return_value=connection):
+            with self.assertRaisesRegex(RuntimeError,'injected setup failure'):
+                app.database()
+        connection.close.assert_called_once_with()
 
 if __name__=='__main__':unittest.main()

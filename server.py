@@ -11,21 +11,27 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from desktop_server import make_server as _make_desktop_server
 from pathlib import Path
 from urllib.parse import urlparse
+from runtime_security import ensure_private_directory, prepare_database, verify_database
 
 ROOT=Path(__file__).resolve().parent
 DATA=Path(os.environ.get('CONTEXT_HANDOFF_DATA',Path.home()/'.local/share/context-handoff'))
-DATA.mkdir(mode=0o700,parents=True,exist_ok=True)
-try:DATA.chmod(0o700)
-except OSError:pass
+ensure_private_directory(DATA)
 DB=DATA/'handoffs.sqlite3';TOKEN=secrets.token_urlsafe(24);MAX_BODY=1_000_000;MAX_PENDING=100;PENDING={}
 LISTS=('decisions','files','checks','questions','failed_approaches')
 ALLOWED={'schema_version','objective',*LISTS}
 FIELD_LIMITS={'objective':4000,'text':1000,'evidence':2000,'path':500,'change':1500,'status':20,'question':1000,'answer':1500,'summary':1000,'reason':1500}
 
 def database():
-    db=sqlite3.connect(DB);db.row_factory=sqlite3.Row
-    db.execute('CREATE TABLE IF NOT EXISTS workspace (id TEXT PRIMARY KEY, current_json TEXT NOT NULL, approved_json TEXT NOT NULL, approved_at TEXT NOT NULL, updated_at TEXT NOT NULL)')
-    return db
+    prepare_database(DB)
+    db=sqlite3.connect(DB)
+    try:
+        db.row_factory=sqlite3.Row
+        verify_database(DB)
+        db.execute('CREATE TABLE IF NOT EXISTS workspace (id TEXT PRIMARY KEY, current_json TEXT NOT NULL, approved_json TEXT NOT NULL, approved_at TEXT NOT NULL, updated_at TEXT NOT NULL)')
+        return db
+    except BaseException:
+        db.close()
+        raise
 
 def clean_text(value,field,required=False):
     if not isinstance(value,str):raise ValueError(f'{field} must be text.')
