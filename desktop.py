@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Native macOS shell for Context Handoff."""
+"""Native macOS shell for AI Task Handoff."""
 from __future__ import annotations
 
 import threading
@@ -21,12 +21,12 @@ def run() -> None:
         if window is not None:
             window.destroy()
 
-    menu = [Menu("File", [MenuAction("Quit Context Handoff", quit_app)])]
+    menu = [Menu("File", [MenuAction("Quit AI Task Handoff", quit_app)])]
     try:
         worker.start()
         started = True
         install_policy(origin)
-        window = webview.create_window("Context Handoff", origin + "/?desktop=1", width=1120, height=760, min_size=(760, 560), menu=menu)
+        window = webview.create_window("AI Task Handoff", origin + "/?desktop=1", width=1120, height=760, min_size=(760, 560), menu=menu)
         webview.start()
     finally:
         if started:
@@ -43,8 +43,8 @@ if __name__ == "__main__":
         import AppKit
 
         alert = AppKit.NSAlert.alloc().init()
-        alert.setMessageText_("Context Handoff could not start")
-        alert.setInformativeText_("The local app failed to open. Restart Context Handoff and try again.")
+        alert.setMessageText_("AI Task Handoff could not start")
+        alert.setInformativeText_("The local app failed to open. Restart AI Task Handoff and try again.")
         alert.addButtonWithTitle_("OK")
         alert.runModal()
         raise SystemExit(1)

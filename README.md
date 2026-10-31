@@ -1,6 +1,6 @@
-# Context Handoff
+# AI Task Handoff
 
-Keep a task's goal, decisions, changed files, checks, questions, and failed approaches in a saved local draft. Review the JSON export before you approve it for the next session.
+Save a task's goal, progress, checks, and next steps for another AI session.
 
 **Install and run on macOS**
 
@@ -13,7 +13,7 @@ python3.12 -m venv .desktop-venv
 .desktop-venv/bin/python install_desktop.py
 ```
 
-Then open `~/Applications/Context Handoff.app` in Finder. Use File → Quit Context Handoff or close the window to stop the local listener. To remove only the marked app copy, run `.desktop-venv/bin/python uninstall_desktop.py`. Local current and approved handoffs remain in `~/.local/share/context-handoff` until reset in Settings.
+Then open `~/Applications/AI Task Handoff.app` in Finder. Use File → Quit AI Task Handoff or close the window to stop the local listener. To remove only the marked app copy, run `.desktop-venv/bin/python uninstall_desktop.py`. Local current and approved handoffs remain in `~/.local/share/context-handoff` until reset in Settings.
 
 ## Browser development
 
@@ -33,7 +33,7 @@ The fictional sample has one pending check and one open question. It cannot appe
 
 ## Format and limits
 
-The manual adapter accepts only Context Handoff JSON schema version 1. It has no provider connections or automatic session starts. It rejects transcripts and credential fields. Export preview and resume comparison need review. The user must accept each operation. When you redact a question, its open or resolved state stays visible. A hidden open question cannot make the handoff appear complete.
+The manual adapter accepts the existing Context Handoff JSON schema version 1. It has no provider connections or automatic session starts. It rejects transcripts and credential fields. Export preview and resume comparison need review. The user must accept each operation. When you redact a question, its open or resolved state stays visible. A hidden open question cannot make the handoff appear complete.
 
 The server binds to loopback. It checks Host, Origin, and a per-process action token. Use it locally, not on a shared network.
 
@@ -47,3 +47,5 @@ python3 -m py_compile server.py tests/test_app.py
 MIT licensed. See `LICENSE`.
 
 For browser development, use the command and local address above. The native app targets macOS; other operating systems have not been tested.
+
+The app is now named AI Task Handoff. Existing local data remains in `~/.local/share/context-handoff`.

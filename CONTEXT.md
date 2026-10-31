@@ -1,6 +1,6 @@
 # Context
 
-Context Handoff is a local, manual task-state keeper. Its current and last-approved snapshots are stored separately in SQLite. Approved exports update the comparison baseline only after the user reviews and approves the preview.
+AI Task Handoff is a local, manual task-state keeper. Its current and last-approved snapshots are stored separately in SQLite. Approved exports update the comparison baseline only after the user reviews and approves the preview.
 
 The schema has an objective plus decisions, files, checks, questions, and failed approaches. IDs stay strings and are unique across lists. Unknown fields are rejected. A check counts as passed only with non-empty evidence. The computed completion state also requires a non-empty objective, at least one check, and no open questions.
 
