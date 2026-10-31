@@ -1,0 +1,13 @@
+/* Compact layout for the native window. The browser edition keeps its full spacing. */
+html main{max-width:1440px;padding-top:20px;padding-bottom:20px}
+html header{height:54px}
+html h1{font-size:32px;line-height:1.1;margin:0 0 8px}
+html h2{font-size:19px}
+html .topline{margin-bottom:14px}
+html .toolbar{gap:8px;margin-bottom:12px}
+html .columns{gap:12px;margin-top:4px}
+html .column h2{margin-top:14px}
+html .group,html .settings-block{padding:14px}
+html button,html input,html select,html textarea{font-size:14px}
+html :focus-visible{outline:2px solid #81d4c7;outline-offset:2px}
+@media(max-width:820px){html main{padding:16px}html header{padding-inline:16px;gap:16px}html .columns{grid-template-columns:1fr}html h1{font-size:28px}}

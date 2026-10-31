@@ -2,7 +2,20 @@
 
 Keep a task's goal, decisions, changed files, checks, questions, and failed approaches in a saved local draft. Review the JSON export before you approve it for the next session.
 
-## Run
+**Install and run on macOS**
+
+The native app opens as a local Mac window. No browser tab or manual server start is needed. In this source folder, build and install it with:
+
+```sh
+python3.12 -m venv .desktop-venv
+.desktop-venv/bin/python -m pip install -r requirements-desktop.lock.txt
+.desktop-venv/bin/python build_desktop.py
+.desktop-venv/bin/python install_desktop.py
+```
+
+Then open `~/Applications/Context Handoff.app` in Finder. Use File → Quit Context Handoff or close the window to stop the local listener. To remove only the marked app copy, run `.desktop-venv/bin/python uninstall_desktop.py`. Local current and approved handoffs remain in `~/.local/share/context-handoff` until reset in Settings.
+
+## Browser development
 
 Requires Python 3.10 or newer. The app uses only the Python standard library and SQLite.
 
@@ -32,3 +45,5 @@ python3 -m py_compile server.py tests/test_app.py
 ```
 
 MIT licensed. See `LICENSE`.
+
+For browser development, use the command and local address above. The native app targets macOS; other operating systems have not been tested.

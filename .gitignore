@@ -4,3 +4,17 @@ __pycache__/
 *.sqlite3-shm
 *.sqlite3-wal
 .DS_Store
+.desktop-venv/
+*.app
+*.spec
+*.previous-*
+build/
+dist/
+graphify-out/
+.env
+secrets*
+uploads/
+exports/
+venv/
+.venv/
+*.log

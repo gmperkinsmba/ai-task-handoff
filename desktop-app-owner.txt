@@ -1,0 +1,3 @@
+Context Handoff desktop bundle
+io.github.gmperkinsmba.context-handoff
+local-build-owner-marker-v1
